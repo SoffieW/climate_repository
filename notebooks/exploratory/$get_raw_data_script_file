@@ -1,0 +1,61 @@
+
+import os
+from dotenv import find_dotenv,load_dotenv
+from requests import session
+import logging
+
+payload = { 
+    'action': 'login',
+    'username': os.environ.get("KAGGLE_USERNAME"),
+    'password': os.environ.get("KAGGLE_PASSWORD")
+
+}
+
+mypath = os.path.join(os.path.pardir, )
+
+def extract_data(url, file_path):
+    '''
+    method to extract data
+    '''
+#setup session
+    with session() as c:
+        c.post('https://www.kaggle.com/account/login', data =payload)
+        with open(file_path, 'wb') as handle:
+            response = c.get(url,stream = True)
+            for block in response.iter_content(1024):
+                handle.write(block)
+                
+def main(project_dir):
+    '''main method
+    '''
+    #get logger
+    logger = logging.getlogger(_name_)
+    logger.info('getting raw data')
+    
+    #url
+    url = 'https://www.kaggle.com/berkeleyearth/climate-change-earth-surface-temperature-data/download/GlobalLandTemperaturesByCity.csv'
+    
+#file path
+raw_data_path = os.path.join(project_dir,'data','raw')
+data_path = os.path.join(raw_data_path,'GlobalLandTemperaturesByCity.csv')
+print(data_path)
+#data_path = r'C:\Users\sophi\climate_repos\data\raw\GlobalLandTemperaturesByCity.csv'
+#extract data
+extract_data(url,data_path)
+logger.info('downloaded raw data')
+
+if _name_ == '_main_':
+    #getting root directory
+    project_dir = os.path.join(os.path.dirname(_file_),os.pardir,os.pardir)
+  #  project_dir = r'C:\Users\sophi\climate_repos'
+    #setup logger
+    log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    logging.basicConfig(level-logging.INFO, format = log_fmt)
+    
+    #find .env automaticcal by walking up directories until found
+    dotenv_path = find_dotenv()
+    #load up the entries as environment variables
+    load_dotenv(dotenv_path)
+    
+    #call the main
+    main(project_dir)
