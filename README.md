@@ -1,7 +1,7 @@
 global_land_temps
 ==============================
 
-This project will analyse global land temperature from datasets provided by Berkeley Earth, eventually building a predictive model to predict what global land temperatures will look like several years into the future. The two datasets to be used are global land temperatures by city and by country.
+This project will analyse global land temperature from dataset provided by Berkeley Earth, eventually building a predictive model to predict what global land temperatures will look like several years into the future. The dataset to be used is global land temperatures by city and country.
 
 Project Organization
 ------------
